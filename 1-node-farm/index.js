@@ -37,8 +37,19 @@ const url = require("url");
 /////// SERVER
 
 const server = http.createServer((req, res) => {
-    console.log(req);
-    res.end("hello from the server!");
+    const pathName = req.url;
+
+    if (pathName === "/overview" || pathName === "/") {
+        res.end("this is the OVERVIEW");
+    } else if (pathName === "/product") {
+        res.end("this is the PRODUCT");
+    } else {
+        res.writeHead(404, {
+            "content-type": "text/html",
+            "my-owen-header": "hello-world"
+        });
+        res.end("<h1> page is not found </h1>");
+    }
 });
 
 server.listen(8000, "127.0.0.1", () => {
