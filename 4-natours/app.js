@@ -106,6 +106,41 @@ const deleteTour = (req, res) => {
     });
 };
 
+const getAllUsers = (req, res) => {
+    res.status(500).json({
+        status: "error",
+        massage: "This rout is not yet defined1"
+    });
+};
+
+const createUser = (req, res) => {
+    res.status(500).json({
+        status: "error",
+        massage: "This rout is not yet defined1"
+    });
+};
+
+const getUser = (req, res) => {
+    res.status(500).json({
+        status: "error",
+        massage: "This rout is not yet defined1"
+    });
+};
+
+const UpdateUser = (req, res) => {
+    res.status(500).json({
+        status: "error",
+        massage: "This rout is not yet defined1"
+    });
+};
+
+const deleteUser = (req, res) => {
+    res.status(500).json({
+        status: "error",
+        massage: "This rout is not yet defined1"
+    });
+};
+
 // app.get("/api/v1/tours", getAllTours);
 // app.get("/api/v1/tours/:id", getTour);
 // app.post("/api/v1/tours", createTour);
@@ -118,6 +153,12 @@ app.route("/api/v1/tours/:id")
     .get(getTour)
     .patch(UpdateTour)
     .delete(deleteTour);
+
+app.route("/api/v1/users").get(getAllUsers).post(createUser);
+app.route("/api/v1/users/:id")
+    .get(getUser)
+    .patch(UpdateUser)
+    .delete(deleteUser);
 
 // 4) START SERVER
 const port = 3000;
