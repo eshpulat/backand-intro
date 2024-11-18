@@ -1,4 +1,4 @@
-const { query } = require('express');
+const query = require('express');
 const Tour = require('../moduls/tourModel');
 
 // const tours = JSON.parse(
@@ -30,7 +30,16 @@ exports.getAllTours = async (req, res) => {
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
 
-    const query = Tour.find(JSON.parse(queryStr));
+    let query = Tour.find(JSON.parse(queryStr));
+
+    // Sorting
+
+    if (req.query.sort) {
+      const sortBy = req.query.sort.split(',').join(' ');
+      query = query.sort(sortBy);
+    } else {
+      query = query.sort('-createdA');
+    }
 
     // const tours = await Tour.find()
     //   .where('duration')
