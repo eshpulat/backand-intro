@@ -1,19 +1,5 @@
-const query = require('express');
+// const query = require('express');
 const Tour = require('../moduls/tourModel');
-
-// const tours = JSON.parse(
-//   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`),
-// );
-
-// exports.checkBody = (req, res, next) => {
-//   if (!req.body.name || !req.body.price) {
-//     return res.status(400).json({
-//       status: 'fail',
-//       message: 'Missing name or price',
-//     });
-//   }
-//   next();
-// };
 
 exports.getAllTours = async (req, res) => {
   try {
@@ -38,7 +24,7 @@ exports.getAllTours = async (req, res) => {
       const sortBy = req.query.sort.split(',').join(' ');
       query = query.sort(sortBy);
     } else {
-      query = query.sort('-createdA');
+      query = query.sort('-createdAt');
     }
 
     // Field Limiting
@@ -50,11 +36,18 @@ exports.getAllTours = async (req, res) => {
       query = query.select('-__v');
     }
 
-    // const tours = await Tour.find()
-    //   .where('duration')
-    //   .equals(5)
-    //   .where('difficulty')
-    //   .equals('easy');
+    // Pagination
+
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 100;
+    const skip = (page - 1) * limit;
+
+    query = query.skip(skip).limit(limit);
+
+    if (req.query.page) {
+      const numTours = await Tour.countDocuments();
+      if (skip >= numTours) throw new Error('This page doas not exist');
+    }
 
     const tours = await query;
 
