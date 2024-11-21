@@ -22,7 +22,7 @@ const tourSchema = new mongoose.Schema(
       type: String,
       required: [true, 'A tour must have a difficulty'],
     },
-    rating: { type: Number, default: 4.5 },
+    // rating: { type: Number, default: 4.5 },
     ratingsAverage: {
       type: Number,
       default: 4.7,
@@ -96,7 +96,12 @@ tourSchema.pre(/^find/, function (next) {
 
 tourSchema.post(/^find/, function (docs, next) {
   console.log(`Query took ${Date.now() - this.start} millisecond!`);
-  console.log(docs);
+  next();
+});
+
+tourSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
+  console.log(this.pipeline());
   next();
 });
 
