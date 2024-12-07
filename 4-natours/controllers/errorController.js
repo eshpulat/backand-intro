@@ -24,7 +24,7 @@ const sendErrorProd = (err, res) => {
     // Programming or other unknown error : don't leak error detailes
   } else {
     // 1) Log error
-    console.error('ERROR 🐦‍⬛', err);
+    console.error('ERROR 🔥', err);
 
     // 2) send generic message
     res.status(500).json({
@@ -43,7 +43,9 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === 'development') {
     sendErrorDev(err, res);
   } else if (process.env.NODE_ENV === 'production') {
-    let error = { ...err };
+    // let error = { ...err };
+
+    let error = JSON.parse(JSON.stringify(err));
 
     if (error.name === 'CastError') error = handleCastErrorDB(error);
     sendErrorProd(error, res);
