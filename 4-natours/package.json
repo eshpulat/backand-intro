@@ -11,8 +11,9 @@
   "author": "Muhammad",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
-    "eslint": "^5.16.0",
+    "eslint": "^8.57.1",
     "express": "^4.21.1",
     "mongoose": "^5.13.22",
     "morgan": "^1.10.0",
