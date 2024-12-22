@@ -1,6 +1,7 @@
 const User = require('../moduls/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const factory = require('../controllers/handlerFactory');
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -79,9 +80,4 @@ exports.UpdateUser = (req, res) => {
   });
 };
 
-exports.deleteUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    massage: 'This rout is not yet defined1',
-  });
-};
+exports.deleteUser = factory.deleteOne(User);
