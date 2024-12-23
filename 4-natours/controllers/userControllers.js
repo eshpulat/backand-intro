@@ -73,11 +73,6 @@ exports.getUser = (req, res) => {
   });
 };
 
-exports.UpdateUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    massage: 'This rout is not yet defined1',
-  });
-};
-
+// Do not Update password with this
+exports.UpdateUser = factory.updateOne(User);
 exports.deleteUser = factory.deleteOne(User);
