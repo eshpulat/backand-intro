@@ -91,6 +91,7 @@ app.use((req, res, next) => {
   );
   next();
 });
+
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
@@ -99,6 +100,7 @@ app.use(
         "'self'",
         'https://unpkg.com',
         'https://cdn.jsdelivr.net',
+        'https://cdnjs.cloudflare.com',
         "'unsafe-inline'",
       ],
       styleSrc: [
